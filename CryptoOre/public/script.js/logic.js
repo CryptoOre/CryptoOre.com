@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let upgradeCost = 10;
     let minerLevel = 1;
 
+    const gameContainer = document.getElementById('game-container');
     const scoreDisplay = document.getElementById('score-display');
     const mineButton = document.getElementById('mine-button');
     const upgradeButton = document.getElementById('upgrade-button');
@@ -37,7 +38,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Переход в полноэкранный режим
+    function goFullScreen() {
+        if (gameContainer.requestFullscreen) {
+            gameContainer.requestFullscreen();
+        } else if (gameContainer.mozRequestFullScreen) { // Firefox
+            gameContainer.mozRequestFullScreen();
+        } else if (gameContainer.webkitRequestFullscreen) { // Chrome, Safari and Opera
+            gameContainer.webkitRequestFullscreen();
+        } else if (gameContainer.msRequestFullscreen) { // IE/Edge
+            gameContainer.msRequestFullscreen();
+        }
+    }
+
+    // Переход в полноэкранный режим при загрузке страницы
+    goFullScreen();
+
     // Инициализация
     updateScore();
     updateUpgradeButton();
 });
+
