@@ -1,2 +1,0 @@
-# CryptoOre.com
-Cryptobot
