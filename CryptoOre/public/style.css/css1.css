@@ -42,3 +42,15 @@ h1 {
     background-color: #ccc;
     cursor: not-allowed;
 }
+#extra-buttons {
+    margin-top: 20px;
+}
+
+    #extra-buttons button {
+        display: block;
+        margin: 10px 0;
+        padding: 10px;
+        width: 100%;
+        font-size: 16px;
+    }
+
