@@ -1,35 +1,43 @@
 // public/script.js
 document.addEventListener('DOMContentLoaded', () => {
+    let score = 0;
+    let upgradeCost = 10;
     let minerLevel = 1;
-    let coins = 0;
 
-    const gameContainer = document.getElementById('game-container');
+    const scoreDisplay = document.getElementById('score-display');
+    const mineButton = document.getElementById('mine-button');
+    const upgradeButton = document.getElementById('upgrade-button');
 
-    const mineButton = document.createElement('button');
-    mineButton.innerText = 'Mine for coins';
-    gameContainer.appendChild(mineButton);
+    // Обновляем отображение счета
+    function updateScore() {
+        scoreDisplay.textContent = `Счет: ${score}`;
+    }
 
-    const coinsDisplay = document.createElement('p');
-    coinsDisplay.innerText = `Coins: ${coins}`;
-    gameContainer.appendChild(coinsDisplay);
+    // Обновляем состояние кнопки улучшения
+    function updateUpgradeButton() {
+        upgradeButton.textContent = `Улучшить шахтера (Стоимость: ${upgradeCost} монеток)`;
+        upgradeButton.disabled = score < upgradeCost;
+    }
 
-    const upgradeButton = document.createElement('button');
-    upgradeButton.innerText = `Upgrade Miner (Current Level: ${minerLevel})`;
-    gameContainer.appendChild(upgradeButton);
-
+    // Обработчик нажатия на кнопку добычи
     mineButton.addEventListener('click', () => {
-        coins += minerLevel;
-        coinsDisplay.innerText = `Coins: ${coins}`;
+        score += minerLevel;
+        updateScore();
+        updateUpgradeButton();
     });
 
+    // Обработчик нажатия на кнопку улучшения
     upgradeButton.addEventListener('click', () => {
-        if (coins >= 10 * minerLevel) {
-            coins -= 10 * minerLevel;
-            minerLevel++;
-            upgradeButton.innerText = `Upgrade Miner (Current Level: ${minerLevel})`;
-            coinsDisplay.innerText = `Coins: ${coins}`;
-        } else {
-            alert('Not enough coins to upgrade!');
+        if (score >= upgradeCost) {
+            score -= upgradeCost;
+            minerLevel += 1;
+            upgradeCost *= 2; // Увеличиваем стоимость улучшения
+            updateScore();
+            updateUpgradeButton();
         }
     });
+
+    // Инициализация
+    updateScore();
+    updateUpgradeButton();
 });
